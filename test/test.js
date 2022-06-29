@@ -6,5 +6,3 @@ describe("GET /", () => {
     request(app).get("/").expect("<h1>The Server is Running in the Background</h1>", done);
   })
 });
-
-
