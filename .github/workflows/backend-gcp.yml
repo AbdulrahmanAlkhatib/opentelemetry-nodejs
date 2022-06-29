@@ -1,10 +1,10 @@
-name: Backend CI & CD
+name: Test Backend / CI & CD
 
 on:
   push:
-    branches: [ "master", "test-branch" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "master", "test-branch" ]
+    branches: [ "master" ]
 
 jobs:
   
@@ -29,3 +29,37 @@ jobs:
         npm test
       env:
         CI: true
+
+  build-push-gcr:
+    name: Build and push to GCP
+    runs-on: ubuntu-latest
+    env: 
+      IMAGE_NAME: backend-image
+      PROJECT_ID: devops-test-project-352613
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - uses: google-github-actions/setup-gcloud@master
+        with: 
+          service-account-key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+          export_default_credintials: true
+          
+      - name: build docker image
+        run: docker build -t $IMAGE_NAME:latest
+      
+      - name: configure docker client
+        run: |- 
+          gcloud auth configure-docker --quiet
+      
+      - name: push docker image to container registry (GCR)
+        env: 
+          GIT_TAG: v0.1.0
+          
+        run: |-
+          docker tag $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:latest
+          docker tag $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:GIT_TAG
+          docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:latest
+          docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:GIT_TAG
+    
