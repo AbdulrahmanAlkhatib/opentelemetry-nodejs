@@ -71,5 +71,5 @@ jobs:
         run: |-
           docker tag $IMAGE_NAME:latest us-west2-docker.pkg.dev/$PROJECT_ID/backend-repo/$IMAGE_NAME:latest
           docker tag $IMAGE_NAME:latest us-west2-docker.pkg.dev/$PROJECT_ID/backend-repo/$IMAGE_NAME:GIT_TAG
-          docker push us-west2-docker.pkg.dev/$PROJECT_ID/backend-repo/$IMAGE_NAME:latest
-          docker push us-west2-docker.pkg.dev/$PROJECT_ID/backend-repo/$IMAGE_NAME:GIT_TAG
+          docker push us-west2-docker.pkg.dev/$PROJECT_ID/backend-repo/
+          docker push us-west2-docker.pkg.dev/$PROJECT_ID/backend-repo/
