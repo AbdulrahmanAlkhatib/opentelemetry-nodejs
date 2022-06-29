@@ -47,7 +47,7 @@ jobs:
           export_default_credintials: true
           
       - name: build docker image
-        run: docker build -t $IMAGE_NAME:latest
+        run: docker build -t $IMAGE_NAME:latest .
       
       - name: configure docker client
         run: |- 
