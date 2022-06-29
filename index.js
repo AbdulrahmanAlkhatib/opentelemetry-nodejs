@@ -33,7 +33,7 @@ const generateID = () => {
 }
 
 app.get('/', (request, response) => {
-    response.send('<h1> The Server is Running in the Background </h1>')
+    response.send('<h1>The Server is Running in the Background</h1>')
 })
 
 app.get('/api/notes', (request, response) => {
@@ -73,6 +73,8 @@ app.post('/api/notes', (request, response) => {
     notes = notes.concat(note)
     response.json(note)
 })
+
+module.exports = app;
 
 const PORT = 3001
 app.listen(PORT, () => {
