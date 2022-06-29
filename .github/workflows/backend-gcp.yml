@@ -34,7 +34,7 @@ jobs:
     name: Build and push to GCP
     runs-on: ubuntu-latest
     env: 
-      IMAGE_NAME: backend-image
+      IMAGE_NAME: backendimage
       PROJECT_ID: devops-test-project-352613
     steps: 
       - name: Checkout
