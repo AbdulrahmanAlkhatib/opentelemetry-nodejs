@@ -30,7 +30,7 @@ jobs:
       env:
         CI: true
 
-  build-push-gcr:
+  build-push-gar:
     name: Build and push to GCP
     runs-on: ubuntu-latest
     env: 
@@ -47,7 +47,7 @@ jobs:
           export_default_credintials: true
           
       - name: build docker image
-        run: docker build -t $IMAGE_NAME:latest .
+        run: docker image build -t $IMAGE_NAME:latest .
       
       - name: configure docker client
         run: |- 
@@ -63,5 +63,3 @@ jobs:
           docker tag $IMAGE_NAME:latest us-west2-docker.pkg.dev/$PROJECT_ID/backendrepo/$IMAGE_NAME:$GIT_TAG
           docker push us-west2-docker.pkg.dev/$PROJECT_ID/backendrepo/$IMAGE_NAME:latest
           docker push us-west2-docker.pkg.dev/$PROJECT_ID/backendrepo/$IMAGE_NAME:$GIT_TAG
-
-
