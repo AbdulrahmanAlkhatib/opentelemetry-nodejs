@@ -51,7 +51,6 @@ jobs:
       
       - name: configure docker client
         run: |- 
-          gcloud auth configure-docker --quiet
           gcloud auth configure-docker us-west2-docker.pkg.dev --quiet
           
       - name: push docker image to Artifact registry
