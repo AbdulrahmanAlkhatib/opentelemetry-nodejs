@@ -1,4 +1,4 @@
-name: Test Backend / CI & CD
+name: Test Backend CI & CD
 
 on:
   push:
