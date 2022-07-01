@@ -46,7 +46,6 @@ jobs:
       - name: auth
         run: |
           echo $JSON_KEY | docker login -u $USERNAME --password-stdin $HOST
-
       - name: build docker image
         run: |
           docker build -t $IMAGE_NAME:latest .
