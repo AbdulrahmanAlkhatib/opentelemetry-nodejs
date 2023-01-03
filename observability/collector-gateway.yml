@@ -1,0 +1,47 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+        cors:
+          allowed_origins:
+            - http://*
+            - https://*
+
+processors:
+  batch:
+    timeout: 1s
+  resource:
+    attributes:
+      - key: component.name2
+        value: "gateway"
+        action: insert
+
+exporters:
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    send_timestamps: true
+    namespace: prom
+    const_labels:
+      label1: value1
+
+  logging:
+    loglevel: info
+
+  jaeger:
+    endpoint: jaeger:14250
+    tls:
+      insecure: true
+  
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch, resource]
+      exporters: [logging, jaeger]
+
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [logging, prometheus]
+
